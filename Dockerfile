@@ -1,11 +1,9 @@
-FROM node:10.13-alpine
-
-COPY ["package.json","package-lock.json*", "./"]
-
-RUN npm install
-
-COPY . .
-
+FROM node:alpine
+RUN mkdir -p /apigeoloc
+COPY . /apigeoloc
+WORKDIR /apigeoloc
+RUN npm i
+RUN chown -R node:node /apigeoloc
+USER node
 EXPOSE 8000
-
-CMD npm start
+CMD ["npm", "start"]
